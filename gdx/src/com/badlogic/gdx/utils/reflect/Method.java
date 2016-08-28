@@ -147,5 +147,31 @@ public final class Method {
 		}
 		return null;
 	}
-
+	
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		// Annotations
+		for(Annotation annotation : method.getDeclaredAnnotations())
+			str.append("@").append(annotation.getClass()).append(' ');
+		if(method.isPublic()) str.append("public").append(" ");
+		if(method.isPrivate()) str.append("private").append(" ");
+		if(method.isAbstract()) str.append("abstract").append(" ");
+		if(method.isFinal()) str.append("final").append(" ");
+		if(method.isStatic()) str.append("static").append(" ");
+		if(method.isNative()) str.append("native").append(" ");
+		str.append(method.getReturnType().getSimpleName());
+		
+		str.append(method.getName());
+		str.append('(');
+		Class<?>[] params = method.getParameterTypes();
+		for (int i = 0; i < params.length; i++) {
+			Class<?> param = params[i];
+			str.append(param.getClass());
+			if(i != params.length-1)
+				str.append(' ');
+		}
+		str.append(");");
+		
+		return str.toString();
+	}
 }
